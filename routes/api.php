@@ -14,5 +14,14 @@ use Illuminate\Http\Request;
 */
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+    return auth()->user();
 });
+
+Route::middleware('auth:api')->get('/user', function (Request $request) {
+    return auth()->user();
+});
+
+Route::get('/cards', 'CardController@getUserCardsApi');
+Route::post('/cards', 'CardController@setUserCardsApi');
+
+

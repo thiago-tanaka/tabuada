@@ -1854,9 +1854,168 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      cards: "",
+      number_one: Math.floor(Math.random() * (9 - 2 + 1)) + 2,
+      number_two: Math.floor(Math.random() * (9 - 2 + 1)) + 2,
+      aleatorio1: "",
+      aleatorio2: "",
+      aleatorio3: "",
+      aleatorio4: "",
+      aleatorio5: "",
+      aleatorio6: "",
+      aleatorio7: "",
+      aleatorio8: "",
+      aleatorio9: "",
+      numbers: {
+        number_1: "",
+        number_2: "",
+        number_3: "",
+        number_4: "",
+        number_5: "",
+        number_6: "",
+        number_7: "",
+        number_8: "",
+        number_9: ""
+      },
+      corect_number: "",
+      correct: '',
+      wrong: ''
+    };
+  },
+  props: ["userId"],
+  beforeMount: function beforeMount() {
+    this.getUserCards();
+  },
   mounted: function mounted() {
-    console.log('Component mounted.');
+    this.sortCards();
+  },
+  created: function created() {},
+  methods: {
+    sortCards: function sortCards() {
+      this.number_one = Math.floor(Math.random() * (9 - 2 + 1)) + 2;
+      this.number_two = Math.floor(Math.random() * (9 - 2 + 1)) + 2;
+      this.corect_number = this.number_one * this.number_two;
+      this.numbers.number_9 = this.corect_number;
+      var random_numbers = [];
+      var aleatorio = Math.floor(Math.random() * (9 - 1 + 1)) + 1;
+
+      for (var i = 1; i <= 9; i++) {
+        do {
+          aleatorio = Math.floor(Math.random() * (9 - 1 + 1)) + 1;
+        } while (random_numbers.indexOf(aleatorio) != -1);
+
+        random_numbers.push(aleatorio);
+        this.aleatorio = "asd";
+
+        if (i == 1) {
+          this.aleatorio1 = aleatorio;
+        }
+
+        if (i == 2) {
+          this.aleatorio2 = aleatorio;
+        }
+
+        if (i == 3) {
+          this.aleatorio3 = aleatorio;
+        }
+
+        if (i == 4) {
+          this.aleatorio4 = aleatorio;
+        }
+
+        if (i == 5) {
+          this.aleatorio5 = aleatorio;
+        }
+
+        if (i == 6) {
+          this.aleatorio6 = aleatorio;
+        }
+
+        if (i == 7) {
+          this.aleatorio7 = aleatorio;
+        }
+
+        if (i == 8) {
+          this.aleatorio8 = aleatorio;
+        }
+
+        if (i == 9) {
+          this.aleatorio9 = aleatorio;
+        }
+      }
+    },
+    confere: function confere(number) {
+      if (number == this.corect_number) {
+        this.correct++;
+        console.log(this.correct);
+        this.setUserCards(number, true);
+      } else {
+        this.wrong++;
+        console.log(this.wrong);
+        this.setUserCards(number, false);
+      }
+    },
+    setUserCards: function setUserCards(number, bool) {
+      var _this = this;
+
+      axios.post("/api/cards", {
+        card: number
+      }).then(function (response) {
+        console.log(response);
+
+        if (response.status == 200) {
+          console.log("ok");
+        }
+
+        _this.sortCards();
+      });
+    },
+    getUserCards: function getUserCards() {
+      var _this2 = this;
+
+      window.axios.get("/api/cards/?user=" + this.userId).then(function (_ref) {
+        var data = _ref.data;
+        _this2.cards = data;
+        _this2.corect_number = _this2.number_one * _this2.number_two;
+        _this2.numbers.number_1 = _this2.cards[Math.floor(Math.random() * 79)]["number"], _this2.numbers.number_2 = _this2.cards[Math.floor(Math.random() * 79)]["number"], _this2.numbers.number_3 = _this2.cards[Math.floor(Math.random() * 79)]["number"], _this2.numbers.number_4 = _this2.cards[Math.floor(Math.random() * 79)]["number"], _this2.numbers.number_5 = _this2.cards[Math.floor(Math.random() * 79)]["number"], _this2.numbers.number_6 = _this2.cards[Math.floor(Math.random() * 79)]["number"], _this2.numbers.number_7 = _this2.cards[Math.floor(Math.random() * 79)]["number"], _this2.numbers.number_8 = _this2.cards[Math.floor(Math.random() * 79)]["number"], _this2.numbers.number_9 = _this2.corect_number;
+        console.log(_this2.corect_number);
+      });
+    }
   }
 });
 
@@ -37168,32 +37327,220 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "container" }, [
-      _c("div", { staticClass: "row justify-content-center" }, [
-        _c("div", { staticClass: "col-md-8" }, [
-          _c("div", { staticClass: "card" }, [
-            _c("div", { staticClass: "card-header" }, [
-              _vm._v("Example Component")
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "card-body" }, [
-              _vm._v(
-                "\n                    I'm an example component.\n                "
-              )
-            ])
-          ])
+  return _c("div", [
+    _c(
+      "div",
+      {
+        staticClass: "text-success float-left",
+        staticStyle: { "font-size": "2em" }
+      },
+      [_vm._v(_vm._s(_vm.correct))]
+    ),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        staticClass: "text-danger float-right",
+        staticStyle: { "font-size": "2em" }
+      },
+      [_vm._v(_vm._s(_vm.wrong))]
+    ),
+    _vm._v(" "),
+    _c("br"),
+    _vm._v(" "),
+    _c(
+      "p",
+      {
+        staticClass: "border text-center mt-3",
+        staticStyle: { "font-size": "7em" }
+      },
+      [_vm._v(_vm._s(_vm.number_one + " x " + _vm.number_two))]
+    ),
+    _vm._v(" "),
+    _c(
+      "table",
+      {
+        staticClass: "table table-bordered text-center w-100",
+        staticStyle: {
+          "font-size": "3em",
+          bottom: "0",
+          left: "0",
+          position: "absolute"
+        }
+      },
+      [
+        _c("tr", [
+          _c(
+            "td",
+            {
+              on: {
+                click: function($event) {
+                  return _vm.confere(_vm.numbers["number_" + _vm.aleatorio1])
+                }
+              }
+            },
+            [
+              _vm.cards != ""
+                ? _c("span", [
+                    _vm._v(_vm._s(_vm.numbers["number_" + _vm.aleatorio1]))
+                  ])
+                : _vm._e()
+            ]
+          ),
+          _vm._v(" "),
+          _c(
+            "td",
+            {
+              on: {
+                click: function($event) {
+                  return _vm.confere(_vm.numbers["number_" + _vm.aleatorio2])
+                }
+              }
+            },
+            [
+              _vm.cards != ""
+                ? _c("span", [
+                    _vm._v(_vm._s(_vm.numbers["number_" + _vm.aleatorio2]))
+                  ])
+                : _vm._e()
+            ]
+          ),
+          _vm._v(" "),
+          _c(
+            "td",
+            {
+              on: {
+                click: function($event) {
+                  return _vm.confere(_vm.numbers["number_" + _vm.aleatorio3])
+                }
+              }
+            },
+            [
+              _vm.cards != ""
+                ? _c("span", [
+                    _vm._v(_vm._s(_vm.numbers["number_" + _vm.aleatorio3]))
+                  ])
+                : _vm._e()
+            ]
+          )
+        ]),
+        _vm._v(" "),
+        _c("tr", [
+          _c(
+            "td",
+            {
+              on: {
+                click: function($event) {
+                  return _vm.confere(_vm.numbers["number_" + _vm.aleatorio4])
+                }
+              }
+            },
+            [
+              _vm.cards != ""
+                ? _c("span", [
+                    _vm._v(_vm._s(_vm.numbers["number_" + _vm.aleatorio4]))
+                  ])
+                : _vm._e()
+            ]
+          ),
+          _vm._v(" "),
+          _c(
+            "td",
+            {
+              on: {
+                click: function($event) {
+                  return _vm.confere(_vm.numbers["number_" + _vm.aleatorio5])
+                }
+              }
+            },
+            [
+              _vm.cards != ""
+                ? _c("span", [
+                    _vm._v(_vm._s(_vm.numbers["number_" + _vm.aleatorio5]))
+                  ])
+                : _vm._e()
+            ]
+          ),
+          _vm._v(" "),
+          _c(
+            "td",
+            {
+              on: {
+                click: function($event) {
+                  return _vm.confere(_vm.numbers["number_" + _vm.aleatorio6])
+                }
+              }
+            },
+            [
+              _vm.cards != ""
+                ? _c("span", [
+                    _vm._v(_vm._s(_vm.numbers["number_" + _vm.aleatorio6]))
+                  ])
+                : _vm._e()
+            ]
+          )
+        ]),
+        _vm._v(" "),
+        _c("tr", [
+          _c(
+            "td",
+            {
+              on: {
+                click: function($event) {
+                  return _vm.confere(_vm.numbers["number_" + _vm.aleatorio7])
+                }
+              }
+            },
+            [
+              _vm.cards != ""
+                ? _c("span", [
+                    _vm._v(_vm._s(_vm.numbers["number_" + _vm.aleatorio7]))
+                  ])
+                : _vm._e()
+            ]
+          ),
+          _vm._v(" "),
+          _c(
+            "td",
+            {
+              on: {
+                click: function($event) {
+                  return _vm.confere(_vm.numbers["number_" + _vm.aleatorio8])
+                }
+              }
+            },
+            [
+              _vm.cards != ""
+                ? _c("span", [
+                    _vm._v(_vm._s(_vm.numbers["number_" + _vm.aleatorio8]))
+                  ])
+                : _vm._e()
+            ]
+          ),
+          _vm._v(" "),
+          _c(
+            "td",
+            {
+              on: {
+                click: function($event) {
+                  return _vm.confere(_vm.numbers["number_" + _vm.aleatorio9])
+                }
+              }
+            },
+            [
+              _vm.cards != ""
+                ? _c("span", [
+                    _vm._v(_vm._s(_vm.numbers["number_" + _vm.aleatorio9]))
+                  ])
+                : _vm._e()
+            ]
+          )
         ])
-      ])
-    ])
-  }
-]
+      ]
+    )
+  ])
+}
+var staticRenderFns = []
 render._withStripped = true
 
 

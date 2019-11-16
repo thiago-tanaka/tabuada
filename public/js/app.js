@@ -1886,6 +1886,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -1913,8 +1915,8 @@ __webpack_require__.r(__webpack_exports__);
         number_9: ""
       },
       corect_number: "",
-      correct: '',
-      wrong: ''
+      correct: "",
+      wrong: ""
     };
   },
   props: ["userId"],
@@ -1980,19 +1982,77 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
     confere: function confere(number) {
+      var _this = this;
+
       if (number == this.corect_number) {
+        document.getElementById(number).className = "bg-success";
+        setTimeout(function () {
+          if (document.getElementsByClassName('bg-success')[0]) {
+            document.getElementsByClassName('bg-success')[0].classList.remove("bg-success");
+          }
+
+          if (document.getElementsByClassName('bg-success')[1]) {
+            document.getElementsByClassName('bg-success')[1].classList.remove("bg-success");
+          }
+
+          if (document.getElementsByClassName('bg-success')[2]) {
+            document.getElementsByClassName('bg-success')[2].classList.remove("bg-success");
+          }
+
+          if (document.getElementsByClassName('bg-danger')[0]) {
+            document.getElementsByClassName('bg-danger')[0].classList.remove("bg-danger");
+          }
+
+          if (document.getElementsByClassName('bg-danger')[1]) {
+            document.getElementsByClassName('bg-danger')[1].classList.remove("bg-danger");
+          }
+
+          if (document.getElementsByClassName('bg-danger')[2]) {
+            document.getElementsByClassName('bg-danger')[2].classList.remove("bg-danger");
+          }
+
+          _this.sortCards();
+        }, 2000);
         this.correct++;
         console.log(this.correct);
         this.setUserCards(number, true);
       } else {
+        document.getElementById(number).className = "bg-danger";
+        setTimeout(function () {
+          if (document.getElementsByClassName('bg-success')[0]) {
+            document.getElementsByClassName('bg-success')[0].classList.remove("bg-success");
+          }
+
+          if (document.getElementsByClassName('bg-success')[1]) {
+            document.getElementsByClassName('bg-success')[1].classList.remove("bg-success");
+          }
+
+          if (document.getElementsByClassName('bg-success')[2]) {
+            document.getElementsByClassName('bg-success')[2].classList.remove("bg-success");
+          }
+
+          if (document.getElementsByClassName('bg-danger')[0]) {
+            document.getElementsByClassName('bg-danger')[0].classList.remove("bg-danger");
+          }
+
+          if (document.getElementsByClassName('bg-danger')[1]) {
+            document.getElementsByClassName('bg-danger')[1].classList.remove("bg-danger");
+          }
+
+          if (document.getElementsByClassName('bg-danger')[2]) {
+            document.getElementsByClassName('bg-danger')[2].classList.remove("bg-danger");
+          }
+
+          _this.sortCards();
+        }, 2000);
         this.wrong++;
         console.log(this.wrong);
         this.setUserCards(number, false);
       }
+
+      document.getElementById(this.corect_number).className = "bg-success";
     },
     setUserCards: function setUserCards(number, bool) {
-      var _this = this;
-
       axios.post("/api/cards", {
         card: number
       }).then(function (response) {
@@ -2001,8 +2061,6 @@ __webpack_require__.r(__webpack_exports__);
         if (response.status == 200) {
           console.log("ok");
         }
-
-        _this.sortCards();
       });
     },
     getUserCards: function getUserCards() {
@@ -37332,19 +37390,23 @@ var render = function() {
       "div",
       {
         staticClass: "text-success float-left",
-        staticStyle: { "font-size": "2em" }
+        staticStyle: { "font-size": "3em" }
       },
-      [_vm._v(_vm._s(_vm.correct))]
+      [_vm._v(" " + _vm._s(_vm.correct))]
     ),
     _vm._v(" "),
     _c(
       "div",
       {
         staticClass: "text-danger float-right",
-        staticStyle: { "font-size": "2em" }
+        staticStyle: { "font-size": "3em" }
       },
       [_vm._v(_vm._s(_vm.wrong))]
     ),
+    _vm._v(" "),
+    _c("br"),
+    _vm._v(" "),
+    _c("div", { staticClass: "row" }),
     _vm._v(" "),
     _c("br"),
     _vm._v(" "),
@@ -37373,6 +37435,7 @@ var render = function() {
           _c(
             "td",
             {
+              attrs: { id: _vm.numbers["number_" + _vm.aleatorio1] },
               on: {
                 click: function($event) {
                   return _vm.confere(_vm.numbers["number_" + _vm.aleatorio1])
@@ -37391,6 +37454,7 @@ var render = function() {
           _c(
             "td",
             {
+              attrs: { id: _vm.numbers["number_" + _vm.aleatorio2] },
               on: {
                 click: function($event) {
                   return _vm.confere(_vm.numbers["number_" + _vm.aleatorio2])
@@ -37409,6 +37473,7 @@ var render = function() {
           _c(
             "td",
             {
+              attrs: { id: _vm.numbers["number_" + _vm.aleatorio3] },
               on: {
                 click: function($event) {
                   return _vm.confere(_vm.numbers["number_" + _vm.aleatorio3])
@@ -37429,6 +37494,7 @@ var render = function() {
           _c(
             "td",
             {
+              attrs: { id: _vm.numbers["number_" + _vm.aleatorio4] },
               on: {
                 click: function($event) {
                   return _vm.confere(_vm.numbers["number_" + _vm.aleatorio4])
@@ -37447,6 +37513,7 @@ var render = function() {
           _c(
             "td",
             {
+              attrs: { id: _vm.numbers["number_" + _vm.aleatorio5] },
               on: {
                 click: function($event) {
                   return _vm.confere(_vm.numbers["number_" + _vm.aleatorio5])
@@ -37465,6 +37532,7 @@ var render = function() {
           _c(
             "td",
             {
+              attrs: { id: _vm.numbers["number_" + _vm.aleatorio6] },
               on: {
                 click: function($event) {
                   return _vm.confere(_vm.numbers["number_" + _vm.aleatorio6])
@@ -37485,6 +37553,7 @@ var render = function() {
           _c(
             "td",
             {
+              attrs: { id: _vm.numbers["number_" + _vm.aleatorio7] },
               on: {
                 click: function($event) {
                   return _vm.confere(_vm.numbers["number_" + _vm.aleatorio7])
@@ -37503,6 +37572,7 @@ var render = function() {
           _c(
             "td",
             {
+              attrs: { id: _vm.numbers["number_" + _vm.aleatorio8] },
               on: {
                 click: function($event) {
                   return _vm.confere(_vm.numbers["number_" + _vm.aleatorio8])
@@ -37521,6 +37591,7 @@ var render = function() {
           _c(
             "td",
             {
+              attrs: { id: _vm.numbers["number_" + _vm.aleatorio9] },
               on: {
                 click: function($event) {
                   return _vm.confere(_vm.numbers["number_" + _vm.aleatorio9])

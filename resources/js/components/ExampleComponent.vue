@@ -1,8 +1,10 @@
 <template>
   <div>
-      <div class="text-success float-left" style="font-size:2em">{{ correct }}</div>
-      <div class="text-danger float-right" style="font-size:2em">{{ wrong }}</div>
-     <br>
+    <div class="text-success float-left" style="font-size:3em"> {{ correct }}</div>
+    <div class="text-danger float-right" style="font-size:3em">{{ wrong }}</div>
+    <br />
+    <div class="row"></div>
+    <br>
     <p style="font-size: 7em" class="border text-center mt-3">{{ number_one + ' x ' + number_two }}</p>
 
     <table
@@ -10,35 +12,35 @@
       style="font-size:3em; bottom: 0; left:0; position: absolute"
     >
       <tr>
-        <td @click="confere(numbers['number_' + aleatorio1])">
+        <td :id="numbers['number_' + aleatorio1]" @click="confere(numbers['number_' + aleatorio1])">
           <span v-if="cards != ''">{{ numbers['number_' + aleatorio1] }}</span>
         </td>
-        <td @click="confere(numbers['number_' + aleatorio2])">
+        <td :id="numbers['number_' + aleatorio2]" @click="confere(numbers['number_' + aleatorio2])">
           <span v-if="cards != ''">{{ numbers['number_' + aleatorio2] }}</span>
         </td>
-        <td @click="confere(numbers['number_' + aleatorio3])">
+        <td :id="numbers['number_' + aleatorio3]" @click="confere(numbers['number_' + aleatorio3])">
           <span v-if="cards != ''">{{ numbers['number_' + aleatorio3] }}</span>
         </td>
       </tr>
       <tr>
-        <td @click="confere(numbers['number_' + aleatorio4])">
+        <td :id="numbers['number_' + aleatorio4]" @click="confere(numbers['number_' + aleatorio4])">
           <span v-if="cards != ''">{{ numbers['number_' + aleatorio4] }}</span>
         </td>
-        <td @click="confere(numbers['number_' + aleatorio5])">
+        <td :id="numbers['number_' + aleatorio5]" @click="confere(numbers['number_' + aleatorio5])">
           <span v-if="cards != ''">{{ numbers['number_' + aleatorio5] }}</span>
         </td>
-        <td @click="confere(numbers['number_' + aleatorio6])">
+        <td :id="numbers['number_' + aleatorio6]" @click="confere(numbers['number_' + aleatorio6])">
           <span v-if="cards != ''">{{ numbers['number_' + aleatorio6] }}</span>
         </td>
       </tr>
       <tr>
-        <td @click="confere(numbers['number_' + aleatorio7])">
+        <td :id="numbers['number_' + aleatorio7]" @click="confere(numbers['number_' + aleatorio7])">
           <span v-if="cards != ''">{{ numbers['number_' + aleatorio7] }}</span>
         </td>
-        <td @click="confere(numbers['number_' + aleatorio8])">
+        <td :id="numbers['number_' + aleatorio8]" @click="confere(numbers['number_' + aleatorio8])">
           <span v-if="cards != ''">{{ numbers['number_' + aleatorio8] }}</span>
         </td>
-        <td @click="confere(numbers['number_' + aleatorio9])">
+        <td :id="numbers['number_' + aleatorio9]" @click="confere(numbers['number_' + aleatorio9])">
           <span v-if="cards != ''">{{ numbers['number_' + aleatorio9] }}</span>
         </td>
       </tr>
@@ -74,8 +76,8 @@ export default {
         number_9: ""
       },
       corect_number: "",
-      correct: '',
-      wrong: ''
+      correct: "",
+      wrong: ""
     };
   },
   props: ["userId"],
@@ -83,15 +85,15 @@ export default {
     this.getUserCards();
   },
   mounted() {
-      this.sortCards()
+    this.sortCards();
   },
   created: function() {},
   methods: {
     sortCards() {
-    this.number_one = Math.floor(Math.random() * (9 - 2 + 1)) + 2
-    this.number_two = Math.floor(Math.random() * (9 - 2 + 1)) + 2
-    this.corect_number = this.number_one * this.number_two;
-    this.numbers.number_9 = this.corect_number
+      this.number_one = Math.floor(Math.random() * (9 - 2 + 1)) + 2;
+      this.number_two = Math.floor(Math.random() * (9 - 2 + 1)) + 2;
+      this.corect_number = this.number_one * this.number_two;
+      this.numbers.number_9 = this.corect_number;
       var random_numbers = [];
       var aleatorio = Math.floor(Math.random() * (9 - 1 + 1)) + 1;
       for (let i = 1; i <= 9; i++) {
@@ -131,14 +133,63 @@ export default {
     },
     confere(number) {
       if (number == this.corect_number) {
-          this.correct++
-          console.log(this.correct)
+        document.getElementById(number).className = "bg-success";
+
+        setTimeout(() => {
+          if(document.getElementsByClassName('bg-success')[0]){
+            document.getElementsByClassName('bg-success')[0].classList.remove("bg-success");
+          }
+          if(document.getElementsByClassName('bg-success')[1]){
+            document.getElementsByClassName('bg-success')[1].classList.remove("bg-success");
+          }
+          if(document.getElementsByClassName('bg-success')[2]){
+            document.getElementsByClassName('bg-success')[2].classList.remove("bg-success");
+          }
+          if(document.getElementsByClassName('bg-danger')[0]){
+            document.getElementsByClassName('bg-danger')[0].classList.remove("bg-danger");
+          }
+          if(document.getElementsByClassName('bg-danger')[1]){
+            document.getElementsByClassName('bg-danger')[1].classList.remove("bg-danger");
+          }
+          if(document.getElementsByClassName('bg-danger')[2]){
+            document.getElementsByClassName('bg-danger')[2].classList.remove("bg-danger");
+          }
+          
+          this.sortCards();
+        }, 2000);
+        this.correct++;
+        console.log(this.correct);
         this.setUserCards(number, true);
       } else {
-          this.wrong++
-          console.log(this.wrong)
+        document.getElementById(number).className = "bg-danger";
+
+        setTimeout(() => {
+          if(document.getElementsByClassName('bg-success')[0]){
+            document.getElementsByClassName('bg-success')[0].classList.remove("bg-success");
+          }
+          if(document.getElementsByClassName('bg-success')[1]){
+            document.getElementsByClassName('bg-success')[1].classList.remove("bg-success");
+          }
+          if(document.getElementsByClassName('bg-success')[2]){
+            document.getElementsByClassName('bg-success')[2].classList.remove("bg-success")
+          }
+          if(document.getElementsByClassName('bg-danger')[0]){
+            document.getElementsByClassName('bg-danger')[0].classList.remove("bg-danger");
+          }
+          if(document.getElementsByClassName('bg-danger')[1]){
+            document.getElementsByClassName('bg-danger')[1].classList.remove("bg-danger");
+          }
+          if(document.getElementsByClassName('bg-danger')[2]){
+            document.getElementsByClassName('bg-danger')[2].classList.remove("bg-danger");
+          }
+          this.sortCards();
+        }, 2000);
+
+        this.wrong++;
+        console.log(this.wrong);
         this.setUserCards(number, false);
       }
+      document.getElementById(this.corect_number).className = "bg-success";
     },
     setUserCards(number, bool) {
       axios
@@ -150,7 +201,6 @@ export default {
           if (response.status == 200) {
             console.log("ok");
           }
-          this.sortCards()
         });
     },
     getUserCards() {

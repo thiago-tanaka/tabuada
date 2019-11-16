@@ -1886,8 +1886,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -37390,7 +37388,7 @@ var render = function() {
       "div",
       {
         staticClass: "text-success float-left",
-        staticStyle: { "font-size": "3em" }
+        staticStyle: { "font-size": "2em" }
       },
       [_vm._v(" " + _vm._s(_vm.correct))]
     ),
@@ -37399,14 +37397,10 @@ var render = function() {
       "div",
       {
         staticClass: "text-danger float-right",
-        staticStyle: { "font-size": "3em" }
+        staticStyle: { "font-size": "2em" }
       },
       [_vm._v(_vm._s(_vm.wrong))]
     ),
-    _vm._v(" "),
-    _c("br"),
-    _vm._v(" "),
-    _c("div", { staticClass: "row" }),
     _vm._v(" "),
     _c("br"),
     _vm._v(" "),

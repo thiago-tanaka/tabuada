@@ -1,9 +1,7 @@
 <template>
   <div>
-    <div class="text-success float-left" style="font-size:3em"> {{ correct }}</div>
-    <div class="text-danger float-right" style="font-size:3em">{{ wrong }}</div>
-    <br />
-    <div class="row"></div>
+    <div class="text-success float-left" style="font-size:2em"> {{ correct }}</div>
+    <div class="text-danger float-right" style="font-size:2em">{{ wrong }}</div>
     <br>
     <p style="font-size: 7em" class="border text-center mt-3">{{ number_one + ' x ' + number_two }}</p>
 

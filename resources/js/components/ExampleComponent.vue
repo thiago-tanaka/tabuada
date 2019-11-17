@@ -1,10 +1,11 @@
 <template>
   <div>
-    <div class="row">
-      <div class="col-2 text-center text-success" style="font-size:3em">{{ correct_total }}</div>
-      <div class="col-8 text-center"></div>
-      <div class="col-2 text-center text-danger" style="font-size:3em">{{ wrong_total }}</div>
+    <div class="row p-0 m-0">
+      <div class="col-2 text-center text-success p-0" style="font-size:3em">{{ correct_total }}</div>
+      <div class="col-8 text-center p-0">sdfg</div>
+      <div class="col-2 text-center text-danger p-0" style="font-size:3em">{{ wrong_total }}</div>
     </div>
+    
     <div style="font-size: 5em; " class="border text-center">{{ number_one + ' x ' + number_two }}</div>
 
     <table

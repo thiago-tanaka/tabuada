@@ -34,7 +34,7 @@ class CardController extends Controller
     public function getUserCardsApi()
     {
         $user = User::find(request('user'));
-        $cards = $user->cards;
+        $cards = $user->cards->pluck('number');
        return  response()->json($cards);
     }
 

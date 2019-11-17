@@ -1913,8 +1913,9 @@ __webpack_require__.r(__webpack_exports__);
         number_9: ""
       },
       corect_number: "",
-      correct: "",
-      wrong: ""
+      correct_total: "",
+      wrong_total: "",
+      already_picked: []
     };
   },
   props: ["userId"],
@@ -1923,6 +1924,8 @@ __webpack_require__.r(__webpack_exports__);
   },
   mounted: function mounted() {
     this.sortCards();
+    this.numbers['number_' + 5] = 3;
+    console.log(this.numbers['number_5'], 'asdfasdfasdfasdf');
   },
   created: function created() {},
   methods: {
@@ -1937,7 +1940,7 @@ __webpack_require__.r(__webpack_exports__);
       for (var i = 1; i <= 9; i++) {
         do {
           aleatorio = Math.floor(Math.random() * (9 - 1 + 1)) + 1;
-        } while (random_numbers.indexOf(aleatorio) != -1);
+        } while (random_numbers.indexOf(aleatorio) !== -1);
 
         random_numbers.push(aleatorio);
         this.aleatorio = "asd";
@@ -1985,66 +1988,66 @@ __webpack_require__.r(__webpack_exports__);
       if (number == this.corect_number) {
         document.getElementById(number).className = "bg-success";
         setTimeout(function () {
-          if (document.getElementsByClassName('bg-success')[0]) {
-            document.getElementsByClassName('bg-success')[0].classList.remove("bg-success");
+          if (document.getElementsByClassName("bg-success")[0]) {
+            document.getElementsByClassName("bg-success")[0].classList.remove("bg-success");
           }
 
-          if (document.getElementsByClassName('bg-success')[1]) {
-            document.getElementsByClassName('bg-success')[1].classList.remove("bg-success");
+          if (document.getElementsByClassName("bg-success")[1]) {
+            document.getElementsByClassName("bg-success")[1].classList.remove("bg-success");
           }
 
-          if (document.getElementsByClassName('bg-success')[2]) {
-            document.getElementsByClassName('bg-success')[2].classList.remove("bg-success");
+          if (document.getElementsByClassName("bg-success")[2]) {
+            document.getElementsByClassName("bg-success")[2].classList.remove("bg-success");
           }
 
-          if (document.getElementsByClassName('bg-danger')[0]) {
-            document.getElementsByClassName('bg-danger')[0].classList.remove("bg-danger");
+          if (document.getElementsByClassName("bg-danger")[0]) {
+            document.getElementsByClassName("bg-danger")[0].classList.remove("bg-danger");
           }
 
-          if (document.getElementsByClassName('bg-danger')[1]) {
-            document.getElementsByClassName('bg-danger')[1].classList.remove("bg-danger");
+          if (document.getElementsByClassName("bg-danger")[1]) {
+            document.getElementsByClassName("bg-danger")[1].classList.remove("bg-danger");
           }
 
-          if (document.getElementsByClassName('bg-danger')[2]) {
-            document.getElementsByClassName('bg-danger')[2].classList.remove("bg-danger");
+          if (document.getElementsByClassName("bg-danger")[2]) {
+            document.getElementsByClassName("bg-danger")[2].classList.remove("bg-danger");
           }
 
           _this.sortCards();
         }, 2000);
-        this.correct++;
-        console.log(this.correct);
+        this.correct_total++;
+        console.log(this.correct_total);
         this.setUserCards(number, true);
       } else {
         document.getElementById(number).className = "bg-danger";
         setTimeout(function () {
-          if (document.getElementsByClassName('bg-success')[0]) {
-            document.getElementsByClassName('bg-success')[0].classList.remove("bg-success");
+          if (document.getElementsByClassName("bg-success")[0]) {
+            document.getElementsByClassName("bg-success")[0].classList.remove("bg-success");
           }
 
-          if (document.getElementsByClassName('bg-success')[1]) {
-            document.getElementsByClassName('bg-success')[1].classList.remove("bg-success");
+          if (document.getElementsByClassName("bg-success")[1]) {
+            document.getElementsByClassName("bg-success")[1].classList.remove("bg-success");
           }
 
-          if (document.getElementsByClassName('bg-success')[2]) {
-            document.getElementsByClassName('bg-success')[2].classList.remove("bg-success");
+          if (document.getElementsByClassName("bg-success")[2]) {
+            document.getElementsByClassName("bg-success")[2].classList.remove("bg-success");
           }
 
-          if (document.getElementsByClassName('bg-danger')[0]) {
-            document.getElementsByClassName('bg-danger')[0].classList.remove("bg-danger");
+          if (document.getElementsByClassName("bg-danger")[0]) {
+            document.getElementsByClassName("bg-danger")[0].classList.remove("bg-danger");
           }
 
-          if (document.getElementsByClassName('bg-danger')[1]) {
-            document.getElementsByClassName('bg-danger')[1].classList.remove("bg-danger");
+          if (document.getElementsByClassName("bg-danger")[1]) {
+            document.getElementsByClassName("bg-danger")[1].classList.remove("bg-danger");
           }
 
-          if (document.getElementsByClassName('bg-danger')[2]) {
-            document.getElementsByClassName('bg-danger')[2].classList.remove("bg-danger");
+          if (document.getElementsByClassName("bg-danger")[2]) {
+            document.getElementsByClassName("bg-danger")[2].classList.remove("bg-danger");
           }
 
           _this.sortCards();
         }, 2000);
-        this.wrong++;
-        console.log(this.wrong);
+        this.wrong_total++;
+        console.log(this.wrong_total);
         this.setUserCards(number, false);
       }
 
@@ -2061,6 +2064,9 @@ __webpack_require__.r(__webpack_exports__);
         }
       });
     },
+    remoreFromArray: function remoreFromArray(number) {
+      console.log(this.numbers.number_1);
+    },
     getUserCards: function getUserCards() {
       var _this2 = this;
 
@@ -2068,8 +2074,114 @@ __webpack_require__.r(__webpack_exports__);
         var data = _ref.data;
         _this2.cards = data;
         _this2.corect_number = _this2.number_one * _this2.number_two;
-        _this2.numbers.number_1 = _this2.cards[Math.floor(Math.random() * 79)]["number"], _this2.numbers.number_2 = _this2.cards[Math.floor(Math.random() * 79)]["number"], _this2.numbers.number_3 = _this2.cards[Math.floor(Math.random() * 79)]["number"], _this2.numbers.number_4 = _this2.cards[Math.floor(Math.random() * 79)]["number"], _this2.numbers.number_5 = _this2.cards[Math.floor(Math.random() * 79)]["number"], _this2.numbers.number_6 = _this2.cards[Math.floor(Math.random() * 79)]["number"], _this2.numbers.number_7 = _this2.cards[Math.floor(Math.random() * 79)]["number"], _this2.numbers.number_8 = _this2.cards[Math.floor(Math.random() * 79)]["number"], _this2.numbers.number_9 = _this2.corect_number;
-        console.log(_this2.corect_number);
+
+        _this2.already_picked.push(_this2.corect_number);
+
+        _this2.numbers.number_1 = _this2.cards[Math.floor(Math.random() * 79)];
+
+        _this2.already_picked.push(_this2.numbers.number_1);
+
+        console.log(_this2.already_picked, 'push1');
+
+        while (_this2.numbers.number_1 != '' && _this2.already_picked.indexOf(_this2.numbers.number_1) !== -1) {
+          console.log('entoru1');
+          _this2.numbers.number_1 = _this2.cards[Math.floor(Math.random() * 79)];
+        }
+
+        _this2.already_picked.push(_this2.numbers.number_1);
+
+        _this2.numbers.number_2 = _this2.cards[Math.floor(Math.random() * 79)];
+
+        _this2.already_picked.push(_this2.numbers.number_2);
+
+        while (_this2.numbers.number_2 !== '' && _this2.already_picked.indexOf(_this2.numbers.number_2) !== -1) {
+          console.log('entoru2');
+          _this2.numbers.number_2 = _this2.cards[Math.floor(Math.random() * 79)];
+        }
+
+        _this2.already_picked.push(_this2.numbers.number_2);
+
+        _this2.numbers.number_3 = _this2.cards[Math.floor(Math.random() * 79)];
+
+        _this2.already_picked.push(_this2.numbers.number_3);
+
+        while (_this2.numbers.number_3 !== '' && _this2.already_picked.indexOf(_this2.numbers.number_3) !== -1) {
+          console.log('entoru3');
+          _this2.numbers.number_3 = _this2.cards[Math.floor(Math.random() * 79)];
+        }
+
+        _this2.already_picked.push(_this2.numbers.number_3);
+
+        _this2.numbers.number_4 = _this2.cards[Math.floor(Math.random() * 79)];
+
+        _this2.already_picked.push(_this2.numbers.number_4);
+
+        while (_this2.numbers.number_4 !== '' && _this2.already_picked.indexOf(_this2.numbers.number_4) !== -1) {
+          console.log('entoru4');
+          _this2.numbers.number_4 = _this2.cards[Math.floor(Math.random() * 79)];
+        }
+
+        _this2.already_picked.push(_this2.numbers.number_4);
+
+        _this2.numbers.number_5 = _this2.cards[Math.floor(Math.random() * 79)];
+
+        _this2.already_picked.push(_this2.numbers.number_5);
+
+        while (_this2.numbers.number_5 !== '' && _this2.already_picked.indexOf(_this2.numbers.number_5) !== -1) {
+          console.log('entoru5');
+          _this2.numbers.number_5 = _this2.cards[Math.floor(Math.random() * 79)];
+        }
+
+        _this2.already_picked.push(_this2.numbers.number_5);
+
+        _this2.numbers.number_6 = _this2.cards[Math.floor(Math.random() * 79)];
+
+        _this2.already_picked.push(_this2.numbers.number_6);
+
+        while (_this2.numbers.number_6 !== '' && _this2.already_picked.indexOf(_this2.numbers.number_6) !== -1) {
+          console.log('entoru6');
+          _this2.numbers.number_6 = _this2.cards[Math.floor(Math.random() * 79)];
+        }
+
+        _this2.already_picked.push(_this2.numbers.number_6);
+
+        _this2.numbers.number_7 = _this2.cards[Math.floor(Math.random() * 79)];
+
+        _this2.already_picked.push(_this2.numbers.number_7);
+
+        while (_this2.numbers.number_7 !== '' && _this2.already_picked.indexOf(_this2.numbers.number_7) !== -1) {
+          console.log('entoru7');
+          _this2.numbers.number_7 = _this2.cards[Math.floor(Math.random() * 79)];
+        }
+
+        _this2.already_picked.push(_this2.numbers.number_7);
+
+        _this2.numbers.number_8 = _this2.cards[Math.floor(Math.random() * 79)];
+
+        _this2.already_picked.push(_this2.numbers.number_8);
+
+        while (_this2.numbers.number_8 !== '' && _this2.already_picked.indexOf(_this2.numbers.number_8) !== -1) {
+          console.log('entoru8');
+          _this2.numbers.number_8 = _this2.cards[Math.floor(Math.random() * 79)];
+        }
+
+        _this2.already_picked.push(_this2.numbers.number_8);
+
+        _this2.already_picked = []; //  this.numbers.number_9 = this.cards[Math.floor(Math.random() * 79)];
+        //     this.already_picked.push(this.numbers.number_9)
+        // while (this.numbers.number_9 != '' && this.already_picked.indexOf(this.numbers.number_9) != -1) {
+        //   this.numbers.number_9 = this.cards[Math.floor(Math.random() * 79)];
+        // }
+        //   this.numbers.number_2 = this.cards[Math.floor(Math.random() * 79)]
+        //   this.numbers.number_3 = this.cards[Math.floor(Math.random() * 79)]
+        //   this.numbers.number_4 = this.cards[Math.floor(Math.random() * 79)]
+        //   this.numbers.number_5 = this.cards[Math.floor(Math.random() * 79)]
+        //   this.numbers.number_6 = this.cards[Math.floor(Math.random() * 79)]
+        //   this.numbers.number_7 = this.cards[Math.floor(Math.random() * 79)]
+        //   this.numbers.number_8 = this.cards[Math.floor(Math.random() * 79)]
+
+        _this2.numbers.number_9 = _this2.corect_number;
+        console.log(_this2.already_picked);
       });
     }
   }
@@ -37390,7 +37502,7 @@ var render = function() {
         staticClass: "text-success float-left",
         staticStyle: { "font-size": "2em" }
       },
-      [_vm._v(" " + _vm._s(_vm.correct))]
+      [_vm._v(_vm._s(_vm.correct_total))]
     ),
     _vm._v(" "),
     _c(
@@ -37399,7 +37511,7 @@ var render = function() {
         staticClass: "text-danger float-right",
         staticStyle: { "font-size": "2em" }
       },
-      [_vm._v(_vm._s(_vm.wrong))]
+      [_vm._v(_vm._s(_vm.wrong_total))]
     ),
     _vm._v(" "),
     _c("br"),

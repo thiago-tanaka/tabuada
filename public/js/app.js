@@ -1858,59 +1858,33 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
+      loop: {
+        'a': {
+          '1': 1,
+          '2': 2,
+          '3': 3
+        },
+        'b': {
+          '1': 4,
+          '2': 5,
+          '3': 6
+        },
+        'c': {
+          '1': 7,
+          '2': 8,
+          '3': 9
+        }
+      },
       cards: ['2', '4', '6', '8', '10', '12', '14', '16', '18', '20', '3', '6', '9', '12', '15', '18', '21', '24', '27', '30', '4', '8', '12', '16', '20', '24', '28', '32', '36', '40', '5', '10', '15', '20', '25', '30', '35', '40', '45', '50', '6', '12', '18', '24', '30', '36', '42', '48', '54', '60', '7', '14', '21', '28', '35', '42', '49', '56', '63', '70', '8', '16', '24', '32', '40', '48', '56', '64', '72', '80', '9', '18', '27', '36', '45', '54', '63', '72', '81', '90'],
       number_one: Math.floor(Math.random() * (9 - 2 + 1)) + 2,
       number_two: Math.floor(Math.random() * (9 - 2 + 1)) + 2,
-      numbers: {
-        number_1: "",
-        number_2: "",
-        number_3: "",
-        number_4: "",
-        number_5: "",
-        number_6: "",
-        number_7: "",
-        number_8: "",
-        number_9: ""
-      },
-      correct_number: "",
+      numbers: {},
       correct_total: "0",
       wrong_total: "0",
-      already_picked: [],
-      aleatorio: ''
+      already_picked: []
     };
   },
   props: ["userId"],
@@ -1919,6 +1893,9 @@ __webpack_require__.r(__webpack_exports__);
     this.sortCards();
   },
   methods: {
+    debug: function debug(o) {
+      console.log(o);
+    },
     sortCards: function sortCards() {
       this.number_one = Math.floor(Math.random() * (9 - 2 + 1)) + 2;
       this.number_two = Math.floor(Math.random() * (9 - 2 + 1)) + 2;
@@ -1933,42 +1910,7 @@ __webpack_require__.r(__webpack_exports__);
         } while (this.already_picked.indexOf(this.aleatorio) !== -1);
 
         this.already_picked.push(this.aleatorio);
-
-        if (i == 1) {
-          this.numbers['number_1'] = this.aleatorio;
-        }
-
-        if (i == 2) {
-          this.numbers['number_2'] = this.aleatorio;
-        }
-
-        if (i == 3) {
-          this.numbers['number_3'] = this.aleatorio;
-        }
-
-        if (i == 4) {
-          this.numbers['number_4'] = this.aleatorio;
-        }
-
-        if (i == 5) {
-          this.numbers['number_5'] = this.aleatorio;
-        }
-
-        if (i == 6) {
-          this.numbers['number_6'] = this.aleatorio;
-        }
-
-        if (i == 7) {
-          this.numbers['number_7'] = this.aleatorio;
-        }
-
-        if (i == 8) {
-          this.numbers['number_8'] = this.aleatorio;
-        }
-
-        if (i == 9) {
-          this.numbers['number_9'] = this.aleatorio;
-        }
+        this.numbers['number_' + i] = this.aleatorio;
       }
 
       this.numbers['number_' + (Math.floor(Math.random() * (9 - 1 + 1)) + 1)] = this.correct_number;
@@ -1976,39 +1918,23 @@ __webpack_require__.r(__webpack_exports__);
     confere: function confere(number) {
       var _this = this;
 
+      this.acertou = this.correct_number;
+      this.errou = number == this.correct_number ? '' : number;
+
       if (number == this.correct_number) {
-        document.getElementById(number).className = "bg-success";
-        setTimeout(function () {
-          if (document.getElementsByClassName("bg-success")[0]) {
-            document.getElementsByClassName("bg-success")[0].classList.remove("bg-success");
-          }
-
-          if (document.getElementsByClassName("bg-danger")[0]) {
-            document.getElementsByClassName("bg-danger")[0].classList.remove("bg-danger");
-          }
-
-          _this.sortCards();
-        }, 1000);
         this.correct_total++;
         this.setUserCards(number, true);
       } else {
-        document.getElementById(number).className = "bg-danger";
-        setTimeout(function () {
-          if (document.getElementsByClassName("bg-success")[0]) {
-            document.getElementsByClassName("bg-success")[0].classList.remove("bg-success");
-          }
-
-          if (document.getElementsByClassName("bg-danger")[0]) {
-            document.getElementsByClassName("bg-danger")[0].classList.remove("bg-danger");
-          }
-
-          _this.sortCards();
-        }, 1000);
         this.wrong_total++;
         this.setUserCards(number, false);
       }
 
-      document.getElementById(this.correct_number).className = "bg-success";
+      setTimeout(function () {
+        _this.acertou = '';
+        _this.errou = '';
+
+        _this.sortCards();
+      }, 1000);
     },
     setUserCards: function setUserCards(number, bool) {
       axios.post("/api/cards", {
@@ -37360,178 +37286,60 @@ var render = function() {
       [_vm._v(_vm._s(_vm.number_one + " x " + _vm.number_two))]
     ),
     _vm._v(" "),
-    _c(
-      "table",
-      {
-        staticClass: "table table-bordered text-center w-100",
-        staticStyle: {
-          "font-size": "3em",
-          bottom: "0",
-          left: "0",
-          position: "absolute"
-        }
-      },
-      [
-        _c("tr", [
-          _c(
-            "td",
-            {
-              attrs: { id: _vm.numbers["number_1"] },
-              on: {
-                click: function($event) {
-                  return _vm.confere(_vm.numbers["number_1"])
-                }
-              }
-            },
-            [
-              _vm.cards != ""
-                ? _c("span", [_vm._v(_vm._s(_vm.numbers["number_1"]))])
-                : _vm._e()
-            ]
-          ),
-          _vm._v(" "),
-          _c(
-            "td",
-            {
-              attrs: { id: _vm.numbers["number_2"] },
-              on: {
-                click: function($event) {
-                  return _vm.confere(_vm.numbers["number_2"])
-                }
-              }
-            },
-            [
-              _vm.cards != ""
-                ? _c("span", [_vm._v(_vm._s(_vm.numbers["number_2"]))])
-                : _vm._e()
-            ]
-          ),
-          _vm._v(" "),
-          _c(
-            "td",
-            {
-              attrs: { id: _vm.numbers["number_3"] },
-              on: {
-                click: function($event) {
-                  return _vm.confere(_vm.numbers["number_3"])
-                }
-              }
-            },
-            [
-              _vm.cards != ""
-                ? _c("span", [_vm._v(_vm._s(_vm.numbers["number_3"]))])
-                : _vm._e()
-            ]
-          )
-        ]),
-        _vm._v(" "),
-        _c("tr", [
-          _c(
-            "td",
-            {
-              attrs: { id: _vm.numbers["number_4"] },
-              on: {
-                click: function($event) {
-                  return _vm.confere(_vm.numbers["number_4"])
-                }
-              }
-            },
-            [
-              _vm.cards != ""
-                ? _c("span", [_vm._v(_vm._s(_vm.numbers["number_4"]))])
-                : _vm._e()
-            ]
-          ),
-          _vm._v(" "),
-          _c(
-            "td",
-            {
-              attrs: { id: _vm.numbers["number_5"] },
-              on: {
-                click: function($event) {
-                  return _vm.confere(_vm.numbers["number_5"])
-                }
-              }
-            },
-            [
-              _vm.cards != ""
-                ? _c("span", [_vm._v(_vm._s(_vm.numbers["number_5"]))])
-                : _vm._e()
-            ]
-          ),
-          _vm._v(" "),
-          _c(
-            "td",
-            {
-              attrs: { id: _vm.numbers["number_6"] },
-              on: {
-                click: function($event) {
-                  return _vm.confere(_vm.numbers["number_6"])
-                }
-              }
-            },
-            [
-              _vm.cards != ""
-                ? _c("span", [_vm._v(_vm._s(_vm.numbers["number_6"]))])
-                : _vm._e()
-            ]
-          )
-        ]),
-        _vm._v(" "),
-        _c("tr", [
-          _c(
-            "td",
-            {
-              attrs: { id: _vm.numbers["number_7"] },
-              on: {
-                click: function($event) {
-                  return _vm.confere(_vm.numbers["number_7"])
-                }
-              }
-            },
-            [
-              _vm.cards != ""
-                ? _c("span", [_vm._v(_vm._s(_vm.numbers["number_7"]))])
-                : _vm._e()
-            ]
-          ),
-          _vm._v(" "),
-          _c(
-            "td",
-            {
-              attrs: { id: _vm.numbers["number_8"] },
-              on: {
-                click: function($event) {
-                  return _vm.confere(_vm.numbers["number_8"])
-                }
-              }
-            },
-            [
-              _vm.cards != ""
-                ? _c("span", [_vm._v(_vm._s(_vm.numbers["number_8"]))])
-                : _vm._e()
-            ]
-          ),
-          _vm._v(" "),
-          _c(
-            "td",
-            {
-              attrs: { id: _vm.numbers["number_9"] },
-              on: {
-                click: function($event) {
-                  return _vm.confere(_vm.numbers["number_9"])
-                }
-              }
-            },
-            [
-              _vm.cards != ""
-                ? _c("span", [_vm._v(_vm._s(_vm.numbers["number_9"]))])
-                : _vm._e()
-            ]
-          )
-        ])
-      ]
-    )
+    _vm.loop
+      ? _c(
+          "table",
+          {
+            staticClass: "table table-bordered text-center w-100",
+            staticStyle: {
+              "font-size": "3em",
+              bottom: "0",
+              left: "0",
+              position: "absolute"
+            }
+          },
+          _vm._l(_vm.loop, function(n, index) {
+            return _c(
+              "tr",
+              { key: index },
+              _vm._l(3, function(o, id) {
+                return _c(
+                  "td",
+                  {
+                    key: id,
+                    class: {
+                      "bg-success":
+                        _vm.acertou ==
+                        _vm.numbers["number_" + _vm.loop[index][o]],
+                      "bg-danger":
+                        _vm.errou == _vm.numbers["number_" + _vm.loop[index][o]]
+                    },
+                    attrs: { id: _vm.numbers["number_" + _vm.loop[index][o]] },
+                    on: {
+                      click: function($event) {
+                        return _vm.confere(
+                          _vm.numbers["number_" + _vm.loop[index][o]]
+                        )
+                      }
+                    }
+                  },
+                  [
+                    _vm.cards != ""
+                      ? _c("span", [
+                          _vm._v(
+                            _vm._s(_vm.numbers["number_" + _vm.loop[index][o]])
+                          )
+                        ])
+                      : _vm._e()
+                  ]
+                )
+              }),
+              0
+            )
+          }),
+          0
+        )
+      : _vm._e()
   ])
 }
 var staticRenderFns = []

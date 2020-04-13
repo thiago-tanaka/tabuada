@@ -22,11 +22,11 @@ class CardController extends Controller
      */
     public function index()
     {
-        if (!Auth::user()->has_cards) {
+        // if (!Auth::user()->has_cards) {
             $this->makeCardsToUser();
-        }
+        // }
 
-        $cards = Auth::user()->cards;
+        $cards = Card::all();
 
         return view('home', compact('cards'));
     }
@@ -117,7 +117,7 @@ class CardController extends Controller
                     'modified_at' => now()->format('Y-m-d H:i:s'),
                     'strenght' => 1
                 ]);
-                Auth::user()->cards()->save($card);
+                $card->save();
             }
         }
     }

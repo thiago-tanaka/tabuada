@@ -13,9 +13,9 @@
 
 Auth::routes();
 
-Route::group(['middleware' => 'auth'], function () {
+// Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/', 'CardController@index');
     Route::resource('card', 'CardController')->except(['index']);
 
-});
+// });

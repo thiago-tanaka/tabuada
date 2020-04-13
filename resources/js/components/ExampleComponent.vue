@@ -2,7 +2,7 @@
     <div>
         <div class="row p-0 m-0">
             <div class="col-2 text-center text-success p-0" style="font-size:3em">{{ correct_total }}</div>
-            <div class="col-8 text-center p-0">sdfg</div>
+            <div class="col-8 text-center p-0"></div>
             <div class="col-2 text-center text-danger p-0" style="font-size:3em">{{ wrong_total }}</div>
         </div>
     
@@ -40,6 +40,8 @@ export default {
             correct_total: "0",
             wrong_total: "0",
             already_picked: [],
+            acertou: '',
+            errou: ''
         };
     },
     props: ["userId"],

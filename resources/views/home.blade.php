@@ -2,6 +2,10 @@
 
 @section('content')
 <div class="container h-100 p-0">
-<example-component user-id="{{auth()->id()}}"></example-component>
+    @if (request('division'))
+        <division></division>
+    @else
+        <example-component user-id="{{auth()->id()}}"></example-component>
+    @endif
 </div>
 @endsection

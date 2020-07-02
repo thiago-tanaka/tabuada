@@ -22,7 +22,21 @@
     <style>
         html, body {
             height: 100%;
-           
+            /* background-image: url("unnamed.jpg"); */
+            /* background: rgb(0, 0, 0); */
+            /* background: rgba(0, 0, 0, 0.1); */
+        }
+
+        .backgrounds{
+            z-index:-1;
+            position:absolute;
+            left:0;
+            top:0;
+            background-image: url('pokemon.jpg');
+            background-repeat: repeat;
+            opacity:0.2;
+            width: 100%;
+            height: 100%;
         }
         *{
             padding: 0px;
@@ -33,6 +47,8 @@
 
 <body>
     <div id="app" class="h-100 p-0 m-0">
+        <div class="backgrounds"></div>
+        {{-- <img src="s.jpg" class="backgrounds" alt=""> --}}
         <main class=" ">
             @yield('content')
         </main>

@@ -1861,19 +1861,25 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      number_one: '',
-      number_two: '',
+      number_one: "",
+      number_two: "",
       correctAnswer: null,
       correct_total: 0,
       wrong_total: 0,
-      answer: '',
-      answerColor: 'gray',
+      answer: "",
+      answerColor: "gray",
       correctAudio: new Audio("correct.mp3"),
-      wrongAudio: new Audio("wrong.mp3") // 37ff00
-
+      wrongAudio: new Audio("wrong.mp3")
     };
   },
   mounted: function mounted() {
@@ -1882,7 +1888,7 @@ __webpack_require__.r(__webpack_exports__);
   computed: {},
   methods: {
     checkAnswer: function checkAnswer() {
-      if (this.answer != '') {
+      if (this.answer != "") {
         this.setCorrectAnswer();
         this.setAnswerColor();
         this.increaseTotals();
@@ -1891,11 +1897,11 @@ __webpack_require__.r(__webpack_exports__);
         setTimeout(function () {
           self.getNumbers();
           self.resetAnswerColor();
-          self.answer = '';
-          self.correctAnswer = '';
+          self.answer = "";
+          self.correctAnswer = "";
         }, 2000);
       } else {
-        this.answerColor = 'red';
+        this.answerColor = "red";
       }
     },
     playAudio: function playAudio() {
@@ -1914,13 +1920,13 @@ __webpack_require__.r(__webpack_exports__);
     },
     setAnswerColor: function setAnswerColor() {
       if (this.correctAnswer == this.answer) {
-        this.answerColor = '#37ff00';
+        this.answerColor = "#37ff00";
       } else {
-        this.answerColor = 'red';
+        this.answerColor = "red";
       }
     },
     resetAnswerColor: function resetAnswerColor() {
-      this.answerColor = 'gray';
+      this.answerColor = "gray";
     },
     setCorrectAnswer: function setCorrectAnswer() {
       this.correctAnswer = this.number_one / this.number_two;
@@ -37402,13 +37408,7 @@ var render = function() {
       { staticClass: "text-center", staticStyle: { "font-size": "2.5em" } },
       [
         _c("span", {}, [
-          _vm._v(
-            "\n            " +
-              _vm._s(_vm.number_one) +
-              " ÷ " +
-              _vm._s(_vm.number_two) +
-              " = \n        "
-          )
+          _vm._v(_vm._s(_vm.number_one) + " ÷ " + _vm._s(_vm.number_two) + " =")
         ]),
         _vm._v(" "),
         _c("input", {
@@ -37424,7 +37424,8 @@ var render = function() {
           staticStyle: {
             width: "70px",
             "font-size": "0.9em",
-            padding: "0px !important"
+            padding: "0px !important",
+            "background-color": "rgba(0, 0, 0, 0)"
           },
           style: "border: solid 3px " + _vm.answerColor,
           attrs: { type: "text" },
@@ -37442,7 +37443,7 @@ var render = function() {
         _c(
           "div",
           { staticClass: "d-inline-block", staticStyle: { width: "70px" } },
-          [_vm._v("\n            " + _vm._s(_vm.correctAnswer) + "\n        ")]
+          [_vm._v(_vm._s(_vm.correctAnswer))]
         )
       ]
     ),

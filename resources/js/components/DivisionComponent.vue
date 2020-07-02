@@ -17,7 +17,7 @@
                 v-model="answer"
                 class="d-inline text-center form-control p-0"
                 :style="'border: solid 3px ' + answerColor"
-                style="width: 70px; font-size:0.9em; padding:0px !important"
+                style="width: 70px; font-size:0.9em; padding:0px !important;background-color:rgba(0, 0, 0, 0)"
                 type="text"
             />
             <div class="d-inline-block" style="width:70px">{{ correctAnswer }}</div>

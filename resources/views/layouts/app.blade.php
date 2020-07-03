@@ -32,7 +32,7 @@
             position:absolute;
             left:0;
             top:0;
-            background-image: url('pokemon.jpg');
+            background-image: url('background.jpg');
             background-repeat: repeat;
             opacity:0.2;
             width: 100%;

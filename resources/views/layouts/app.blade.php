@@ -32,7 +32,7 @@
             position:absolute;
             left:0;
             top:0;
-            background-image: url('background.jpg');
+            background-image: url('back{{ rand(1,16) }}.jpg');
             background-repeat: repeat;
             opacity:0.2;
             width: 100%;

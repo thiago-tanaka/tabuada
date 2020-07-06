@@ -2,9 +2,11 @@
     <div>
         <div class="row p-0 m-0">
             <div
-                class="col-2 text-center text-success p-0"
+                class="col-2 text-center text-success p-0 "
                 style="font-size:3em"
-            >{{ correct_total }}</div>
+            >
+                {{ correct_total }}
+            </div>
             <div class="col-8 text-center p-0">
                 <a href="/">かけ算</a>
             </div>
@@ -40,7 +42,7 @@ export default {
             answer: "",
             answerColor: "gray",
             correctAudio: new Audio("correct.mp3"),
-            wrongAudio: new Audio("wrong.mp3")
+            wrongAudio: new Audio("wrong.mp3"),
         };
     },
     mounted() {
@@ -48,6 +50,13 @@ export default {
     },
     computed: {},
     methods: {
+        aumentar(){
+            if(this.tamanho > 600){
+                this.tamanho = 200
+            }else{
+                this.tamanho += 200
+            }
+        },
         checkAnswer() {
             if (this.answer != "") {
                 this.setCorrectAnswer();

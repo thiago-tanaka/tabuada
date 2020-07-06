@@ -41,7 +41,8 @@ export default {
             wrong_total: "0",
             already_picked: [],
             acertou: '',
-            errou: ''
+            errou: '',
+            timeoutTime: 50
         };
     },
     props: ["userId"],
@@ -75,9 +76,11 @@ export default {
             this.acertou = this.correct_number
             this.errou = number == this.correct_number ? '' : number
             if (number == this.correct_number) {
+                this.timeoutTime = 50
                 this.correct_total++;
                 this.setUserCards(number, true);
             } else {
+                this.timeoutTime = 1000
                 this.wrong_total++;
                 this.setUserCards(number, false);
             }
@@ -86,7 +89,7 @@ export default {
                 this.errou = ''
 
                 this.sortCards();
-            }, 1000);
+            }, this.timeoutTime);
         },
         setUserCards(number, bool) {
             axios

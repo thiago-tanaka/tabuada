@@ -1868,6 +1868,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -1887,6 +1889,13 @@ __webpack_require__.r(__webpack_exports__);
   },
   computed: {},
   methods: {
+    aumentar: function aumentar() {
+      if (this.tamanho > 600) {
+        this.tamanho = 200;
+      } else {
+        this.tamanho += 200;
+      }
+    },
     checkAnswer: function checkAnswer() {
       if (this.answer != "") {
         this.setCorrectAnswer();
@@ -2010,7 +2019,8 @@ __webpack_require__.r(__webpack_exports__);
       wrong_total: "0",
       already_picked: [],
       acertou: '',
-      errou: ''
+      errou: '',
+      timeoutTime: 50
     };
   },
   props: ["userId"],
@@ -2048,9 +2058,11 @@ __webpack_require__.r(__webpack_exports__);
       this.errou = number == this.correct_number ? '' : number;
 
       if (number == this.correct_number) {
+        this.timeoutTime = 50;
         this.correct_total++;
         this.setUserCards(number, true);
       } else {
+        this.timeoutTime = 1000;
         this.wrong_total++;
         this.setUserCards(number, false);
       }
@@ -2060,7 +2072,7 @@ __webpack_require__.r(__webpack_exports__);
         _this.errou = '';
 
         _this.sortCards();
-      }, 1000);
+      }, this.timeoutTime);
     },
     setUserCards: function setUserCards(number, bool) {
       axios.post("/api/cards", {
@@ -37385,10 +37397,10 @@ var render = function() {
       _c(
         "div",
         {
-          staticClass: "col-2 text-center text-success p-0",
+          staticClass: "col-2 text-center text-success p-0 ",
           staticStyle: { "font-size": "3em" }
         },
-        [_vm._v(_vm._s(_vm.correct_total))]
+        [_vm._v("\n            " + _vm._s(_vm.correct_total) + "\n        ")]
       ),
       _vm._v(" "),
       _vm._m(0),

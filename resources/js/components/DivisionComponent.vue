@@ -16,11 +16,13 @@
         <div style="font-size: 2.5em; " class="text-center">
             <span class>{{ number_one }} ÷ {{ number_two }} =</span>
             <input
+                ref="input"
                 v-model="answer"
                 class="d-inline text-center form-control p-0"
                 :style="'border: solid 3px ' + answerColor"
                 style="width: 70px; font-size:0.9em; padding:0px !important;background-color:rgba(0, 0, 0, 0)"
-                type="text"
+                type="number"
+                @keydown.enter="checkAnswer"
             />
             <div class="d-inline-block" style="width:70px">{{ correctAnswer }}</div>
         </div>
@@ -43,6 +45,7 @@ export default {
             answerColor: "gray",
             correctAudio: new Audio("correct.mp3"),
             wrongAudio: new Audio("wrong.mp3"),
+            timeOutTime:2000
         };
     },
     mounted() {
@@ -69,10 +72,11 @@ export default {
                     self.resetAnswerColor();
                     self.answer = "";
                     self.correctAnswer = "";
-                }, 2000);
+                }, this.timeOutTime);
             } else {
                 this.answerColor = "red";
             }
+            this.$refs.input.focus()
         },
         playAudio() {
             if (this.correctAnswer == this.answer) {

@@ -22,20 +22,14 @@ class CardController extends Controller
      */
     public function index()
     {
-        // if (!Auth::user()->has_cards) {
-            $this->makeCardsToUser();
-        // }
-
-        $cards = Card::all();
-
-        return view('home', compact('cards'));
+        return view('home');
     }
 
     public function getUserCardsApi()
     {
         $user = User::find(request('user'));
         $cards = $user->cards->pluck('number');
-       return  response()->json($cards);
+        return  response()->json($cards);
     }
 
     public function setUserCardsApi(){

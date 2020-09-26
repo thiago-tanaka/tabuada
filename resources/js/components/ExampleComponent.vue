@@ -45,8 +45,6 @@ export default {
             timeoutTime: 50
         };
     },
-    props: ["userId"],
-    beforeMount() {},
     mounted() {
         this.sortCards();
     },

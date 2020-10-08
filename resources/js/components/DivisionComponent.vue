@@ -60,6 +60,9 @@ export default {
             }
         },
         checkAnswer() {
+            if(this.disableCheckAnswerButton){
+                return
+            }
             if (this.answer != "") {
                 this.disableCheckAnswerButton = true
                 this.setCorrectAnswer();

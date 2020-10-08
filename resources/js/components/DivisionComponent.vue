@@ -52,13 +52,6 @@ export default {
     },
     computed: {},
     methods: {
-        aumentar(){
-            if(this.tamanho > 600){
-                this.tamanho = 200
-            }else{
-                this.tamanho += 200
-            }
-        },
         checkAnswer() {
             if(this.disableCheckAnswerButton){
                 return

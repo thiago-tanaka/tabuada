@@ -7,9 +7,7 @@
             >
                 {{ correct_total }}
             </div>
-            <div class="col-8 text-center p-0">
-                <a href="/">かけ算</a>
-            </div>
+            <links-component current="divisionWithRemain"></links-component>
             <div class="col-2 text-center text-danger p-0" style="font-size:3em">{{ wrong_total }}</div>
         </div>
 
@@ -35,8 +33,8 @@
             <div class="d-inline-block" style="width:70px">{{ correctRemaining }}</div>
         </div>
         <div class="text-center">
-            <button @click="checkAnswer" class="mt-4 btn btn-success">enviar</button>
-            <button @click="reset" class="mt-4 btn btn-success ml-5">próximo</button>
+            <button :disabled="disableCheckAnswerButton" @click="checkAnswer" class="mt-4 btn btn-success">enviar</button>
+            <button :disabled="disableNextButton" @click="reset" class="mt-4 btn btn-success ml-5">próximo</button>
         </div>
     </div>
 </template>
@@ -56,7 +54,9 @@ export default {
             wrongAudio: new Audio("wrong.mp3"),
             timeOutTime:2000,
             correctRemaining: null,
-            remaining:null
+            remaining:null,
+            disableCheckAnswerButton:false,
+            disableNextButton:true,
         };
     },
     mounted() {
@@ -77,7 +77,8 @@ export default {
                 this.setAnswerColor();
                 this.increaseTotals();
                 this.playAudio();
-               
+                this.disableCheckAnswerButton = true
+                this.disableNextButton = false
             } else {
                 this.answerColor = "red";
             }
@@ -90,6 +91,8 @@ export default {
             this.remaining = ""
             this.correctAnswer = "";
             this.correctRemaining = "";
+            this.disableCheckAnswerButton = false
+            this.disableNextButton = true
         },
         playAudio() {
             if (this.correctAnswer == this.answer && this.remaining == this.correctRemaining) {

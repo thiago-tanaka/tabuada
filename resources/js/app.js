@@ -21,6 +21,7 @@ window.Vue = require('vue');
 
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 Vue.component('division', require('./components/DivisionComponent.vue').default);
+Vue.component('links-component', require('./components/linksComponent.vue').default);
 Vue.component('division-with-ramaining', require('./components/DivisionWithRemainingComponent.vue').default);
 
 /**

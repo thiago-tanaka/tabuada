@@ -1870,8 +1870,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -1884,7 +1882,8 @@ __webpack_require__.r(__webpack_exports__);
       answerColor: "gray",
       correctAudio: new Audio("correct.mp3"),
       wrongAudio: new Audio("wrong.mp3"),
-      timeOutTime: 2000
+      timeOutTime: 2000,
+      disableCheckAnswerButton: false
     };
   },
   mounted: function mounted() {
@@ -1900,17 +1899,22 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
     checkAnswer: function checkAnswer() {
+      var _this = this;
+
       if (this.answer != "") {
+        this.disableCheckAnswerButton = true;
         this.setCorrectAnswer();
         this.setAnswerColor();
         this.increaseTotals();
         this.playAudio();
-        self = this;
         setTimeout(function () {
-          self.getNumbers();
-          self.resetAnswerColor();
-          self.answer = "";
-          self.correctAnswer = "";
+          _this.getNumbers();
+
+          _this.resetAnswerColor();
+
+          _this.answer = "";
+          _this.correctAnswer = "";
+          _this.disableCheckAnswerButton = false;
         }, this.timeOutTime);
       } else {
         this.answerColor = "red";
@@ -2017,8 +2021,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2033,7 +2035,9 @@ __webpack_require__.r(__webpack_exports__);
       wrongAudio: new Audio("wrong.mp3"),
       timeOutTime: 2000,
       correctRemaining: null,
-      remaining: null
+      remaining: null,
+      disableCheckAnswerButton: false,
+      disableNextButton: true
     };
   },
   mounted: function mounted() {
@@ -2054,6 +2058,8 @@ __webpack_require__.r(__webpack_exports__);
         this.setAnswerColor();
         this.increaseTotals();
         this.playAudio();
+        this.disableCheckAnswerButton = true;
+        this.disableNextButton = false;
       } else {
         this.answerColor = "red";
       }
@@ -2067,6 +2073,8 @@ __webpack_require__.r(__webpack_exports__);
       this.remaining = "";
       this.correctAnswer = "";
       this.correctRemaining = "";
+      this.disableCheckAnswerButton = false;
+      this.disableNextButton = true;
     },
     playAudio: function playAudio() {
       if (this.correctAnswer == this.answer && this.remaining == this.correctRemaining) {
@@ -2239,6 +2247,37 @@ __webpack_require__.r(__webpack_exports__);
       });
     }
   }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/linksComponent.vue?vue&type=script&lang=js&":
+/*!*************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/linksComponent.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['current']
 });
 
 /***/ }),
@@ -37550,27 +37589,32 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c("div", { staticClass: "row p-0 m-0" }, [
-      _c(
-        "div",
-        {
-          staticClass: "col-2 text-center text-success p-0 ",
-          staticStyle: { "font-size": "3em" }
-        },
-        [_vm._v("\n            " + _vm._s(_vm.correct_total) + "\n        ")]
-      ),
-      _vm._v(" "),
-      _vm._m(0),
-      _vm._v(" "),
-      _c(
-        "div",
-        {
-          staticClass: "col-2 text-center text-danger p-0",
-          staticStyle: { "font-size": "3em" }
-        },
-        [_vm._v(_vm._s(_vm.wrong_total))]
-      )
-    ]),
+    _c(
+      "div",
+      { staticClass: "row p-0 m-0" },
+      [
+        _c(
+          "div",
+          {
+            staticClass: "col-2 text-center text-success p-0 ",
+            staticStyle: { "font-size": "3em" }
+          },
+          [_vm._v("\n            " + _vm._s(_vm.correct_total) + "\n        ")]
+        ),
+        _vm._v(" "),
+        _c("links-component", { attrs: { current: "division" } }),
+        _vm._v(" "),
+        _c(
+          "div",
+          {
+            staticClass: "col-2 text-center text-danger p-0",
+            staticStyle: { "font-size": "3em" }
+          },
+          [_vm._v(_vm._s(_vm.wrong_total))]
+        )
+      ],
+      1
+    ),
     _vm._v(" "),
     _c(
       "div",
@@ -37630,22 +37674,17 @@ var render = function() {
     _c("div", { staticClass: "text-center" }, [
       _c(
         "button",
-        { staticClass: "mt-4 btn btn-success", on: { click: _vm.checkAnswer } },
+        {
+          staticClass: "mt-4 btn btn-success",
+          attrs: { disabled: _vm.disableCheckAnswerButton },
+          on: { click: _vm.checkAnswer }
+        },
         [_vm._v("enviar")]
       )
     ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-8 text-center p-0" }, [
-      _c("a", { attrs: { href: "/" } }, [_vm._v("かけ算")])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -37668,27 +37707,32 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c("div", { staticClass: "row p-0 m-0" }, [
-      _c(
-        "div",
-        {
-          staticClass: "col-2 text-center text-success p-0 ",
-          staticStyle: { "font-size": "3em" }
-        },
-        [_vm._v("\n            " + _vm._s(_vm.correct_total) + "\n        ")]
-      ),
-      _vm._v(" "),
-      _vm._m(0),
-      _vm._v(" "),
-      _c(
-        "div",
-        {
-          staticClass: "col-2 text-center text-danger p-0",
-          staticStyle: { "font-size": "3em" }
-        },
-        [_vm._v(_vm._s(_vm.wrong_total))]
-      )
-    ]),
+    _c(
+      "div",
+      { staticClass: "row p-0 m-0" },
+      [
+        _c(
+          "div",
+          {
+            staticClass: "col-2 text-center text-success p-0 ",
+            staticStyle: { "font-size": "3em" }
+          },
+          [_vm._v("\n            " + _vm._s(_vm.correct_total) + "\n        ")]
+        ),
+        _vm._v(" "),
+        _c("links-component", { attrs: { current: "divisionWithRemain" } }),
+        _vm._v(" "),
+        _c(
+          "div",
+          {
+            staticClass: "col-2 text-center text-danger p-0",
+            staticStyle: { "font-size": "3em" }
+          },
+          [_vm._v(_vm._s(_vm.wrong_total))]
+        )
+      ],
+      1
+    ),
     _vm._v(" "),
     _c(
       "div",
@@ -37783,28 +37827,27 @@ var render = function() {
     _c("div", { staticClass: "text-center" }, [
       _c(
         "button",
-        { staticClass: "mt-4 btn btn-success", on: { click: _vm.checkAnswer } },
+        {
+          staticClass: "mt-4 btn btn-success",
+          attrs: { disabled: _vm.disableCheckAnswerButton },
+          on: { click: _vm.checkAnswer }
+        },
         [_vm._v("enviar")]
       ),
       _vm._v(" "),
       _c(
         "button",
-        { staticClass: "mt-4 btn btn-success ml-5", on: { click: _vm.reset } },
+        {
+          staticClass: "mt-4 btn btn-success ml-5",
+          attrs: { disabled: _vm.disableNextButton },
+          on: { click: _vm.reset }
+        },
         [_vm._v("próximo")]
       )
     ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-8 text-center p-0" }, [
-      _c("a", { attrs: { href: "/" } }, [_vm._v("かけ算")])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -37827,27 +37870,32 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c("div", { staticClass: "row p-0 m-0" }, [
-      _c(
-        "div",
-        {
-          staticClass: "col-2 text-center text-success p-0",
-          staticStyle: { "font-size": "3em" }
-        },
-        [_vm._v(_vm._s(_vm.correct_total))]
-      ),
-      _vm._v(" "),
-      _vm._m(0),
-      _vm._v(" "),
-      _c(
-        "div",
-        {
-          staticClass: "col-2 text-center text-danger p-0",
-          staticStyle: { "font-size": "3em" }
-        },
-        [_vm._v(_vm._s(_vm.wrong_total))]
-      )
-    ]),
+    _c(
+      "div",
+      { staticClass: "row p-0 m-0" },
+      [
+        _c(
+          "div",
+          {
+            staticClass: "col-2 text-center text-success p-0",
+            staticStyle: { "font-size": "3em" }
+          },
+          [_vm._v(_vm._s(_vm.correct_total))]
+        ),
+        _vm._v(" "),
+        _c("links-component", { attrs: { current: "multiply" } }),
+        _vm._v(" "),
+        _c(
+          "div",
+          {
+            staticClass: "col-2 text-center text-danger p-0",
+            staticStyle: { "font-size": "3em" }
+          },
+          [_vm._v(_vm._s(_vm.wrong_total))]
+        )
+      ],
+      1
+    ),
     _vm._v(" "),
     _c(
       "div",
@@ -37914,16 +37962,89 @@ var render = function() {
       : _vm._e()
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-8 text-center p-0" }, [
-      _c("a", { attrs: { href: "/?division=true" } }, [_vm._v("わり算")])
-    ])
-  }
-]
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/linksComponent.vue?vue&type=template&id=436dfa4f&":
+/*!*****************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/linksComponent.vue?vue&type=template&id=436dfa4f& ***!
+  \*****************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "col-8 text-center p-0 " }, [
+    _c(
+      "div",
+      { staticClass: "row text-center border border-primary bg-dark" },
+      [
+        _vm.current != "multiply"
+          ? _c(
+              "div",
+              {
+                staticClass: "col-6 text-center",
+                attrs: { onclick: "window.open('/', '_self')" }
+              },
+              [_c("a", { attrs: { href: "/" } }, [_vm._v("かけ算")])]
+            )
+          : _vm._e(),
+        _vm._v(" "),
+        _vm.current != "division"
+          ? _c(
+              "div",
+              {
+                staticClass: "col-6 text-center border-primary",
+                class: { "border-left": _vm.current != "multiply" },
+                attrs: { onclick: "window.open('/?division=true', '_self')" }
+              },
+              [
+                _c(
+                  "a",
+                  {
+                    staticClass: "text-center",
+                    attrs: { href: "/?division=true" }
+                  },
+                  [_vm._v("わり算")]
+                )
+              ]
+            )
+          : _vm._e(),
+        _vm._v(" "),
+        _vm.current != "divisionWithRemain"
+          ? _c(
+              "div",
+              {
+                staticClass: "col-6 text-center border-primary border-left",
+                attrs: { onclick: "window.open('/?division2=true', '_self')" }
+              },
+              [
+                _c(
+                  "a",
+                  {
+                    staticClass: "text-center",
+                    attrs: { href: "/?division2=true" }
+                  },
+                  [_vm._v("わり算とあまり")]
+                )
+              ]
+            )
+          : _vm._e()
+      ]
+    )
+  ])
+}
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -50093,6 +50214,7 @@ window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.
 
 Vue.component('example-component', __webpack_require__(/*! ./components/ExampleComponent.vue */ "./resources/js/components/ExampleComponent.vue")["default"]);
 Vue.component('division', __webpack_require__(/*! ./components/DivisionComponent.vue */ "./resources/js/components/DivisionComponent.vue")["default"]);
+Vue.component('links-component', __webpack_require__(/*! ./components/linksComponent.vue */ "./resources/js/components/linksComponent.vue")["default"]);
 Vue.component('division-with-ramaining', __webpack_require__(/*! ./components/DivisionWithRemainingComponent.vue */ "./resources/js/components/DivisionWithRemainingComponent.vue")["default"]);
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -50353,6 +50475,75 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ExampleComponent_vue_vue_type_template_id_299e239e___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ExampleComponent_vue_vue_type_template_id_299e239e___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/linksComponent.vue":
+/*!****************************************************!*\
+  !*** ./resources/js/components/linksComponent.vue ***!
+  \****************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _linksComponent_vue_vue_type_template_id_436dfa4f___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./linksComponent.vue?vue&type=template&id=436dfa4f& */ "./resources/js/components/linksComponent.vue?vue&type=template&id=436dfa4f&");
+/* harmony import */ var _linksComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./linksComponent.vue?vue&type=script&lang=js& */ "./resources/js/components/linksComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _linksComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _linksComponent_vue_vue_type_template_id_436dfa4f___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _linksComponent_vue_vue_type_template_id_436dfa4f___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/linksComponent.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/linksComponent.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************!*\
+  !*** ./resources/js/components/linksComponent.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_linksComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./linksComponent.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/linksComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_linksComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/linksComponent.vue?vue&type=template&id=436dfa4f&":
+/*!***********************************************************************************!*\
+  !*** ./resources/js/components/linksComponent.vue?vue&type=template&id=436dfa4f& ***!
+  \***********************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_linksComponent_vue_vue_type_template_id_436dfa4f___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./linksComponent.vue?vue&type=template&id=436dfa4f& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/linksComponent.vue?vue&type=template&id=436dfa4f&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_linksComponent_vue_vue_type_template_id_436dfa4f___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_linksComponent_vue_vue_type_template_id_436dfa4f___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

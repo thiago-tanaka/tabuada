@@ -7,9 +7,7 @@
             >
                 {{ correct_total }}
             </div>
-            <div class="col-8 text-center p-0">
-                <a href="/">かけ算</a>
-            </div>
+            <links-component current="division"></links-component>
             <div class="col-2 text-center text-danger p-0" style="font-size:3em">{{ wrong_total }}</div>
         </div>
 
@@ -27,7 +25,7 @@
             <div class="d-inline-block" style="width:70px">{{ correctAnswer }}</div>
         </div>
         <div class="text-center">
-            <button @click="checkAnswer" class="mt-4 btn btn-success">enviar</button>
+            <button :disabled="disableCheckAnswerButton" @click="checkAnswer" class="mt-4 btn btn-success">enviar</button>
         </div>
     </div>
 </template>
@@ -45,7 +43,8 @@ export default {
             answerColor: "gray",
             correctAudio: new Audio("correct.mp3"),
             wrongAudio: new Audio("wrong.mp3"),
-            timeOutTime:2000
+            timeOutTime:2000,
+            disableCheckAnswerButton:false
         };
     },
     mounted() {
@@ -62,16 +61,17 @@ export default {
         },
         checkAnswer() {
             if (this.answer != "") {
+                this.disableCheckAnswerButton = true
                 this.setCorrectAnswer();
                 this.setAnswerColor();
                 this.increaseTotals();
                 this.playAudio();
-                self = this;
-                setTimeout(function() {
-                    self.getNumbers();
-                    self.resetAnswerColor();
-                    self.answer = "";
-                    self.correctAnswer = "";
+                setTimeout(() => {
+                    this.getNumbers();
+                    this.resetAnswerColor();
+                    this.answer = "";
+                    this.correctAnswer = "";
+                    this.disableCheckAnswerButton = false
                 }, this.timeOutTime);
             } else {
                 this.answerColor = "red";

@@ -1,4 +1,4 @@
-FROM devilbox/php-fpm-8.0:latest
+FROM devilbox/php-fpm-8.1:latest
 
 RUN apt-get update && apt-get install -y libmcrypt-dev --no-install-recommends \
     apt-utils \
@@ -15,7 +15,7 @@ RUN apt-get update && apt-get install -y libmcrypt-dev --no-install-recommends \
     && pecl install imagick \
     && docker-php-ext-enable imagick \
     && docker-php-ext-configure zip --with-libzip \
-    && docker-php-ext-configure gd --with-freetype --with-jpeg \ 
+    && docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-install -j$(nproc) gd exif bcmath pdo_mysql mysqli zip
 
 # Install Composer
